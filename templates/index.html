@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Finance</title>
+    <link rel="icon"
+        href="https://www.informatics.buu.ac.th/2020/wp-content/uploads/2018/04/cropped-logo-if-1-32x32.png"
+        sizes="32x32" />
+    <link rel="icon"
+        href="https://www.informatics.buu.ac.th/2020/wp-content/uploads/2018/04/cropped-logo-if-1-192x192.png"
+        sizes="192x192" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+        integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-gray-900 text-white">
+    <h1
+        class="text-center text-9xl font-bold mt-64 bg-gradient-to-r from-pink-500 to-yellow-500 bg-clip-text text-transparent">
+        Artificial Intelligence in Business and Finance
+    </h1>
+
+    <h2 class="text-7xl font-semibold m-5 text-center">
+        BOT Trade with GUI
+    </h2>
+    <div class="flex justify-center gap-4 items-start mt-10">
+        <div>
+            <input type="text" class="px-4 py-2 text-black w-96 text-xl rounded" placeholder="Search Derivatives Symbol"
+                id="symbol">
+            <div class="text-red-500" id="missing">
+            </div>
+
+        </div>
+        </input>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded"
+            onclick="submit()">Search</button>
+    </div>
+
+    <script>
+        const submit = () => {
+            const symbol = $("#symbol").val()
+            const missing = $("#missing")
+            if (!symbol) {
+                missing.text("please input some symbol")
+            } else {
+                base_url = window.location.origin
+                window.location.href = `${base_url}/public/dashboard/${symbol}`
+            }
+        }
+    </script>
+</body>
+
+
+</html>

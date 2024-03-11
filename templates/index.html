@@ -14,30 +14,81 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
         integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
 </head>
 
-<body class="bg-gray-900 text-white">
-    <h1
-        class="text-center text-9xl font-bold mt-64 bg-gradient-to-r from-pink-500 to-yellow-500 bg-clip-text text-transparent">
-        Artificial Intelligence in Business and Finance
-    </h1>
+<body class="bg-gray-900">
+    <div class="flex justify-center items-center h-screen w-screen">
+        <div class="">
+            <h1
+                class="text-center text-9xl font-bold bg-gradient-to-r from-pink-500 to-yellow-500 bg-clip-text text-transparent">
+                Artificial Intelligence in Business and Finance
+            </h1>
 
-    <h2 class="text-7xl font-semibold m-5 text-center">
-        BOT Trade with GUI
-    </h2>
-    <div class="flex justify-center gap-4 items-start mt-10">
-        <div>
-            <input type="text" class="px-4 py-2 text-black w-96 text-xl rounded" placeholder="Search Derivatives Symbol"
-                id="symbol">
-            <div class="text-red-500" id="missing">
+            <h2 class="text-7xl font-semibold m-5 text-center  text-white">
+                BOT Trade with GUI
+            </h2>
+            <div class="flex justify-center gap-4 items-start mt-10">
+                <div>
+                    <input type="text" class="px-4 py-2 text-black w-96 text-xl rounded"
+                        placeholder="Search Derivatives Symbol" id="symbol">
+                    <div class="text-red-500" id="missing">
+                    </div>
+
+                </div>
+                </input>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded"
+                    onclick="submit()">Search</button>
             </div>
-
         </div>
-        </input>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded"
-            onclick="submit()">Search</button>
     </div>
+    <div class="flex justify-center items-center h-screen">
+        <div>
+            <h1 class="text-7xl font-semibold m-5 text-center  text-white">Order History</h1>
+            <div class="bg-white p-5 rounded-lg">
+                <table id="table">
+                    <thead>
+                        <tr>
+                            <th>Order No.</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Pos</th>
+                            <th>Symbol</th>
+                            <th>Side</th>
+                            <th>Price</th>
+                            <th>Volume</th>
+                            <th>Matched</th>
+                            <th>Balance</th>
+                            <th>Cancelled</th>
+                            <th>Valid</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>{{order.orderNo}}</td>
+                            <td>{{order.tradeDate[-2:]}}/{{order.tradeDate[-5:-3]}}</td>
+                            <td>{{order.entryTime[-8:]}}</td>
+                            <td>{{order.position}}</td>
+                            <td>{{order.symbol}}</td>
+                            <td>{{order.side}}</td>
+                            <td>{{order.price}}</td>
+                            <td>{{order.qty}}</td>
+                            <td>{{order.matchQty}}</td>
+                            <td>{{order.balanceQty}}</td>
+                            <td>{{order.cancelQty}}</td>
+                            <td>{{order.validity}}</td>
+                            <td>{{order.showStatus}}</td>
 
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     <script>
         const submit = () => {
             const symbol = $("#symbol").val()
@@ -49,6 +100,11 @@
                 window.location.href = `${base_url}/public/dashboard/${symbol}`
             }
         }
+        $(document).ready(() => {
+            $('#table').DataTable({
+                order: [[0, "desc"]],
+            })
+        })
     </script>
 </body>
 
